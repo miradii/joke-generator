@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class JokeController {
     private final JokeService jokeService;
 
-    public JokeController(JokeService jokeGenereator) {
-        this.jokeService = jokeGenereator;
+    public JokeController(JokeService jokeService) {
+        this.jokeService = jokeService;
     }
 
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String getJoke(Model model){
         model.addAttribute("joke",jokeService.getJoke());
+        System.out.println("here");
         return "index";
     }
 }
