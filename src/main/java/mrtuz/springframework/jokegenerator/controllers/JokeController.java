@@ -2,19 +2,22 @@ package mrtuz.springframework.jokegenerator.controllers;
 
 import mrtuz.springframework.jokegenerator.services.JokeService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class JokeController {
-    private final JokeService jokeGenereator;
+    private final JokeService jokeService;
 
     public JokeController(JokeService jokeGenereator) {
-        this.jokeGenereator = jokeGenereator;
+        this.jokeService = jokeGenereator;
     }
 
 
-    @GetMapping("/")
-    public String getJoke(){
-        return jokeGenereator.getJoke();
+    @RequestMapping("/")
+    public String getJoke(Model model){
+        model.addAttribute("joke",jokeService.getJoke());
+        return "index";
     }
 }
